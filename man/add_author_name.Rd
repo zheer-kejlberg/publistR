@@ -7,7 +7,9 @@
 add_author_name(family = "Family Name", given = "Firstname)
 }
 \arguments{
-\item{character}{Input names as character}
+\item{family}{Input surname as character}
+
+\item{given}{Input firstname as character}
 }
 \description{
 Add author names to highlight in the publication list

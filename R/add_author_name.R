@@ -6,7 +6,8 @@
 #' @description Add author names to highlight in the publication list
 #' @export
 #' @usage add_author_name(family = "Family Name", given = "Firstname)
-#' @param character Input names as character
+#' @param family Input surname as character
+#' @param given Input firstname as character
 #' @return NULL
 #' @examples
 #'   \dontrun{add_author_name(family = "Family Name", given = "Firstname")}
