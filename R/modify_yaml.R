@@ -16,12 +16,14 @@ modify_yaml <- function() {
   yaml_data <- yaml::yaml.load_file(yaml_path)
 
   # fix the citeproc value
-  yaml_data[["citeproc"]] <- "false"
+  #yaml_data[["citeproc"]] <- "false"
 
   # add author names
   yaml_data[["bold-auth-name"]] <- namelist
 
   # Write the modified YAML to a new file in the temp directory
-  output_path <- paste0(getwd(), "/publistR_temp/yaml.yaml")
-  yaml::write_yaml(yaml_data, output_path)
+  output_path <- paste0(getwd(), "/publistR_temp/yaml.txt")
+  #yaml::write_yaml(yaml_data, output_path)
+  output <- as.yaml(yaml_data, handlers = list(logical=verbatim_logical))
+  writeLines(output, output_path)
 }
