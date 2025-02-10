@@ -13,6 +13,7 @@
 copy_files <- function() {
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
+  bold_author_path <- system.file("bold-author.lua", package = "publistR")
   font_doc_path <- system.file("font-ref-doc.docx", package = "publistR")
   section_bibliographies_path <- system.file("section-bibliographies.lua", package = "publistR")
 
@@ -24,6 +25,7 @@ copy_files <- function() {
 
   # copy files
   file.copy(csl_path, to_path)
+  file.copy(bold_author_path, to_path)
   file.copy(font_doc_path, to_path)
   file.copy(section_bibliographies_path, to_path)
 }
