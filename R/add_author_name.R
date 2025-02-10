@@ -9,8 +9,7 @@
 #' @param character Input names as character
 #' @return NULL
 #' @examples
-#'   \dontrun{
-#'   add_author_name(family = "Family Name", given = "Firstname")}
+#'   \dontrun{add_author_name(family = "Family Name", given = "Firstname")}
 
 #### add_author_name(): Add author names to highlight in the publication list
 

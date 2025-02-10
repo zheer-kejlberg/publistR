@@ -8,8 +8,7 @@
 #' @usage publistR_knit()
 #' @return NULL
 #' @examples
-#'   \dontrun{
-#'   publistR_knit()}
+#'   \dontrun{publistR_knit()}
 
 #### publistR_knit(): Finalize process
 
