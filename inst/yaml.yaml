@@ -1,0 +1,13 @@
+---
+format:
+  docx:
+    reference-doc: publistR_temp/font-ref-doc.docx
+editor: source
+section-bibs-bibliography: publistR_temp/references.bib
+csl: publistR_temp/publistR.csl
+citeproc: false
+filters:
+  - quarto
+  - publistR_temp/section-bibliographies.lua
+  - publistR_temp/bold-author.lua
+---

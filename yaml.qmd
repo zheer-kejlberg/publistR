@@ -1,0 +1,47 @@
+---
+format:
+  docx:
+    reference-doc: font-ref-doc.docx
+editor: source
+section-bibs-bibliography: references.bib
+csl: inst/elsevier-vancouver-modified.csl
+citeproc: false 
+filters:
+  - quarto
+  - inst/pandoc-ext/section-bibliographies
+  - inst/bold-author.lua
+bold-auth-name:
+  - family: FamilyOne
+    given: GivenOne
+  - family: FamilyTwo
+    given: GivenTwo
+---
+
+
+
+# [Udgivne artikler, førsteforfatter]{.content-hidden unless-meta="conditions.separated"}
+
+
+@al-mashhadiSGLT2InhibitorTreatment2022a @al-mashhadiRiskMajorOsteoporotic2022 @al-mashhadiGlucoseLoweringDrugsFracture2020 @al-mashhadiBoneHealthElderly2020
+
+
+# [Udgivne artikler, medforfatter]{.content-hidden unless-meta="conditions.separated"}
+
+
+@al-mashhadi18FluorodeoxyglucoseAccumulationArterial2019 @al-mashhadiLocalPressureDrives2021 @viggersImpactExerciseBone2020 @viggersAlendronateUseRisk2021 @viggersEfficacyAlendronateDenosumab2022 @vanhultenAssociationsSodiumglucoseCotransporter22023 @mellbyeEffects12WeekSupplementation2024 @starup-lindeSerumOsteoglycinStable2024
+
+
+# [Konferenceabstrakts]{.content-hidden unless-meta="conditions.separated"}
+
+
+@al-mashhadiFractureRiskTreatment2022 @al-mashhadiSGLT2InhibitorTreatment2022
+
+
+<!-- # Insendte artikler. -->
+
+
+# [Manuskripter under udarbejdelse]{.content-hidden unless-meta="conditions.separated"}
+
+
+@al-mashhadiSystemicGlucocorticoidUse
+
