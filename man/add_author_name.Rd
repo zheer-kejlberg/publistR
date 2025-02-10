@@ -4,7 +4,7 @@
 \alias{add_author_name}
 \title{add_author_name}
 \usage{
-add_author_name(family = "Family Name", given = "Firstname)
+add_author_name(family = "Family Name", given = "Firstname")
 }
 \arguments{
 \item{family}{Input surname as character}

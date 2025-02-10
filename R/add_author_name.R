@@ -5,7 +5,7 @@
 #' @author Zheer Kejlberg Al-Mashhadi
 #' @description Add author names to highlight in the publication list
 #' @export
-#' @usage add_author_name(family = "Family Name", given = "Firstname)
+#' @usage add_author_name(family = "Family Name", given = "Firstname")
 #' @param family Input surname as character
 #' @param given Input firstname as character
 #' @return NULL
