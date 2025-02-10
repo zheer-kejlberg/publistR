@@ -21,9 +21,11 @@ modify_yaml <- function() {
   # add author names
   yaml_data[["bold-auth-name"]] <- namelist
 
+  verbatim_logical <- yaml::verbatim_logical
+
   # Write the modified YAML to a new file in the temp directory
   output_path <- paste0(getwd(), "/publistR_temp/yaml.txt")
   #yaml::write_yaml(yaml_data, output_path)
-  output <- yaml::as.yaml(yaml_data, handlers = list(logical=verbatim_logical))
-  writeLines(output, output_path)
+  yaml_data <- yaml::as.yaml(yaml_data, handlers = list(logical=verbatim_logical))
+  writeLines(yaml_data, output_path)
 }
