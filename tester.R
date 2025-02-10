@@ -14,6 +14,10 @@ dois <- c("10.21926/obm.geriatr.2002123",
 publistR_section("WoW", dois)
 
 
+qmd_file <- readLines(paste0(getwd(), "/inst/yaml.yaml"))
+qmd_file <- c(qmd_file, sections)
+outpath <- paste0(getwd(), "/publistR.qmd")
+writeLines(qmd_file, paste0(getwd(), "/publistR.qmd"))
 
 t <- readLines(paste0(getwd(), "/inst/yaml.yaml"))
 t <- c(t,
