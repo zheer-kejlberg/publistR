@@ -15,8 +15,7 @@ publistR_section(title = "Section title", DOIs = c("vector of DOIs"))
 Create section for the publication list
 }
 \examples{
-  \dontrun{
-  publistR_section(title = "First authorship", DOIs = "https://doi.org/10.1016/j.jacc.2019.06.057")}
+  \dontrun{publistR_section(title = "First authorship", DOIs = "https://doi.org/10.1016/j.jacc.2019.06.057")}
 }
 \author{
 Zheer Kejlberg Al-Mashhadi

@@ -13,8 +13,7 @@ add_author_name(family = "Family Name", given = "Firstname)
 Add author names to highlight in the publication list
 }
 \examples{
-  \dontrun{
-  add_author_name(family = "Family Name", given = "Firstname")}
+  \dontrun{add_author_name(family = "Family Name", given = "Firstname")}
 }
 \author{
 Zheer Kejlberg Al-Mashhadi

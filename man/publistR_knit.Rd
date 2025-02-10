@@ -10,8 +10,7 @@ publistR_knit()
 Add author names to highlight in the publication list
 }
 \examples{
-  \dontrun{
-  publistR_knit()}
+  \dontrun{publistR_knit()}
 }
 \author{
 Zheer Kejlberg Al-Mashhadi
