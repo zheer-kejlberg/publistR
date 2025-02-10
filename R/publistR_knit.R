@@ -23,8 +23,8 @@ publistR_knit <- function() {
   create_bib()
 
   # Create .qmd file
-  qmd_file <- readLines(paste0(getwd(), "/publistR_temp/yaml.yaml"))
-  qmd_file <- c(qmd_file, sections)
+  yaml_section <- readLines(paste0(getwd(), "/publistR_temp/yaml.yaml"))
+  qmd_file <- c("---",yaml_section, "---",sections)
   writeLines(qmd_file, paste0(getwd(), "/publistR_temp/publistR.qmd"))
 
   # Knit .qmd file

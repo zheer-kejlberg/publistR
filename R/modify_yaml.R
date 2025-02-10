@@ -13,9 +13,12 @@
 modify_yaml <- function() {
   # Read YAML file
   yaml_path <- system.file("yaml.yaml", package = "publistR")
-  #yaml_path <- "inst/yaml.yaml"
   yaml_data <- yaml::yaml.load_file(yaml_path)
 
+  # fix the citeproc value
+  yaml_data[["citeproc"]] <- "false"
+
+  # add author names
   yaml_data[["bold-auth-name"]] <- namelist
 
   # Write the modified YAML to a new file in the temp directory
