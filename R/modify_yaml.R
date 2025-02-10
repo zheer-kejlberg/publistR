@@ -19,6 +19,6 @@ modify_yaml <- function() {
   yaml_data[["bold-auth-name"]] <- namelist
 
   # Write the modified YAML to a new file in the temp directory
-  output_path <- file.path(getwd(), "/publistR_temp/yaml.yaml")
+  output_path <- paste0(getwd(), "/publistR_temp/yaml.yaml")
   yaml::write_yaml(yaml_data, output_path)
 }

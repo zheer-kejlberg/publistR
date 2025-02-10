@@ -17,9 +17,6 @@ copy_files <- function() {
   font_doc_path <- system.file("font-ref-doc.docx", package = "publistR")
   section_bibliographies_path <- system.file("section-bibliographies.lua", package = "publistR")
 
-  # location to copy to
-  to_path <- paste0(getwd(), "/publistR_temp")
-
   # create temp directory
   dir.create(paste0(getwd(), "/publistR_temp"))
 
