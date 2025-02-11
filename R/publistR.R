@@ -88,7 +88,7 @@ publistR <- function(author_names = NULL,
   if (merge_sections == FALSE) {
     sections <- c()
   } else {
-    sections <- c("", merged_title, "")
+    sections <- c("", paste0("# ", merged_title), "")
   }
 
   for (i in 1:length(ref_section_titles)) {
