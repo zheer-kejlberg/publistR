@@ -116,6 +116,6 @@ publistR <- function(author_names = NULL,
   quarto::quarto_render(paste0(getwd(), "/publistR.qmd"))
 
   # Delete temp files
-  file.remove("publistR.qmd")
-  unlink("publistR_temp", recursive = TRUE)
+  #file.remove("publistR.qmd")
+  #unlink("publistR_temp", recursive = TRUE)
 }
