@@ -88,14 +88,15 @@ publistR <- function(author_names = NULL,
   dir.create(to_path)
 
   # copy files
-  file.copy(csl_path, to_path)
+  #file.copy(csl_path, to_path)
   file.copy(bold_author_path, to_path)
   file.copy(hide_me_path, to_path)
   file.copy(font_doc_path, to_path)
   file.copy(section_bibliographies_path, to_path)
 
   #### MODIFY CSL ####
-  csl <- readLines("publistR_temp/publistR.csl")
+  #csl <- readLines("publistR_temp/publistR.csl")
+  csl <- readLines(csl_path)
   input_formatting <- function(input) {
     for (line in c(534,540,546,549,554)) {
       print(csl[line])
@@ -103,19 +104,11 @@ publistR <- function(author_names = NULL,
       print(csl[line])
     }
   }
-  if (title_bold) {
-    input_formatting("font-weight=\"bold\"")
-  }
-  if (title_italic) {
-    input_formatting("font-style=\"italic\"")
-  }
-  if (title_underline) {
-    input_formatting("text-decoration=\"underline\"")
-  }
-  if (title_small_caps) {
-    input_formatting("font-variant=\"small-caps\"")
-  }
-  writeLines(csl, "/publistR_temp/publistR.csl")
+  if (title_bold) { input_formatting("font-weight=\"bold\"") }
+  if (title_italic) { input_formatting("font-style=\"italic\"") }
+  if (title_underline) { input_formatting("text-decoration=\"underline\"") }
+  if (title_small_caps) { input_formatting("font-variant=\"small-caps\"") }
+  writeLines(csl, paste0(to_path, "/publistR.csl"))
 
   #### MODIFY YAML HEADER ####
   # Read YAML file
