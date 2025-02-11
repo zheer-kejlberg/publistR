@@ -88,20 +88,16 @@ publistR <- function(author_names = NULL,
   dir.create(to_path)
 
   # copy files
-  #file.copy(csl_path, to_path)
   file.copy(bold_author_path, to_path)
   file.copy(hide_me_path, to_path)
   file.copy(font_doc_path, to_path)
   file.copy(section_bibliographies_path, to_path)
 
   #### MODIFY CSL ####
-  #csl <- readLines("publistR_temp/publistR.csl")
   csl <- readLines(csl_path)
   input_formatting <- function(input) {
     for (line in c(534,540,546,549,554)) {
-      print(csl[line])
       csl[line] <- gsub("/>", paste0(" ", input," />"), csl[line])
-      print(csl[line])
     }
     return(csl)
   }
@@ -122,7 +118,6 @@ publistR <- function(author_names = NULL,
   }
 
   # fix the citeproc value
-  #verbatim_logical <- yaml::verbatim_logical
   yaml_data <- yaml::as.yaml(yaml_data, handlers = list(logical=yaml::verbatim_logical))
 
   # Write the modified YAML to a new file in the temp directory
@@ -175,6 +170,6 @@ publistR <- function(author_names = NULL,
   quarto::quarto_render(paste0(getwd(), "/publistR.qmd"))
 
   #### DELETE HELPER FILES ####
-  #file.remove("publistR.qmd")
-  #unlink("publistR_temp", recursive = TRUE)
+  file.remove("publistR.qmd")
+  unlink("publistR_temp", recursive = TRUE)
 }
