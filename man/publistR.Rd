@@ -17,19 +17,20 @@ publistR()
 
 \item{custom_fonts}{File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Arg defaults to 'NULL', using PublistR's internal Word Template.}
 
+\item{title_bold}{Boolean, defaults to FALSE}
+
 \item{title_italic}{Boolean, defaults to FALSE}
 
 \item{title_underline}{Boolean, defaults to FALSE}
 
 \item{title_small_caps}{Boolean, defaults to FALSE}
-
-\item{title_bold}{Boolean, defaults to FALSE}
 }
 \description{
 Create publication list
 }
 \examples{
-  \dontrun{publistR(
+  \dontrun{
+  publistR(
     author_names = list(
       list(family = "Al-Mashhadi", given = "Zheer"),
       list(family = "Al-Mashhadi", given = "Zheer Kejlberg")

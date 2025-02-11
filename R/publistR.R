@@ -17,7 +17,8 @@
 #' @param title_underline Boolean, defaults to FALSE
 #' @param title_small_caps Boolean, defaults to FALSE
 #' @examples
-#'   \dontrun{publistR(
+#'   \dontrun{
+#'   publistR(
 #'     author_names = list(
 #'       list(family = "Al-Mashhadi", given = "Zheer"),
 #'       list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
