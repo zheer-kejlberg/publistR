@@ -133,6 +133,16 @@ publistR <- function(author_names = NULL,
   }
   bibtex <- lapply(ref_sections,extract_dois)
   message("DOIs retrieved.")
+  print(bibtex)
+  # Rename shorthand/keys
+  rename_doi_key <- function(dois) {
+    for (i in 1:length(dois)) {
+      dois[i] <- gsub(" @article\\{.*, title=\\{", paste0(" @article\\{",i,", title=\\{"), dois[i])
+    }
+  }
+  bibtex <- lapply(bibtex,rename_doi_key)
+  #rename_doi_key(unlist(t)[1],4)
+  print(bibtex)
 
   # Create sections
   get_section_titles <- function(ref_sections) {
