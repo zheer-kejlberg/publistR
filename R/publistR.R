@@ -115,7 +115,7 @@ publistR <- function(author_names = NULL,
   if (title_small_caps) {
     input_formatting("font-variant=\"small-caps\"")
   }
-  writeLines(csl, "publistR_temp/publistR.csl")
+  writeLines(csl, "/publistR_temp/publistR.csl")
 
   #### MODIFY YAML HEADER ####
   # Read YAML file
