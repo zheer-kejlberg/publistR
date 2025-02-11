@@ -14,6 +14,16 @@ publistR()
 \item{merge_sections}{a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.}
 
 \item{merged_title}{a section title for the merged section IF merge_sections is set to TRUE.}
+
+\item{custom_fonts}{File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Arg defaults to 'NULL', using PublistR's internal Word Template.}
+
+\item{title_italic}{Boolean, defaults to FALSE}
+
+\item{title_underline}{Boolean, defaults to FALSE}
+
+\item{title_small_caps}{Boolean, defaults to FALSE}
+
+\item{title_bold}{Boolean, defaults to FALSE}
 }
 \description{
 Create publication list
@@ -21,9 +31,8 @@ Create publication list
 \examples{
   \dontrun{publistR(
     author_names = list(
-      list(family = "Kejlberg Al-Mashhadi", given = "Zheer"),
-      list(family = "Kejlberg", given = "Zheer"),
-      list(family = "Al-Mashhadi", given = "Zheer")
+      list(family = "Al-Mashhadi", given = "Zheer"),
+      list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
     ),
     ref_sections = list(
       list(title = "Section one", DOIs = c("10.21926/obm.geriatr.2002123","https://doi.org/10.1016/j.jacc.2019.06.057")),

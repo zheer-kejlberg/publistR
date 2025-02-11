@@ -11,12 +11,16 @@
 #' @param ref_sections a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
 #' @param merge_sections a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
 #' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
+#' @param custom_fonts File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Arg defaults to 'NULL', using PublistR's internal Word Template.
+#' @param title_bold Boolean, defaults to FALSE
+#' @param title_italic Boolean, defaults to FALSE
+#' @param title_underline Boolean, defaults to FALSE
+#' @param title_small_caps Boolean, defaults to FALSE
 #' @examples
 #'   \dontrun{publistR(
 #'     author_names = list(
-#'       list(family = "Kejlberg Al-Mashhadi", given = "Zheer"),
-#'       list(family = "Kejlberg", given = "Zheer"),
-#'       list(family = "Al-Mashhadi", given = "Zheer")
+#'       list(family = "Al-Mashhadi", given = "Zheer"),
+#'       list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
 #'     ),
 #'     ref_sections = list(
 #'       list(title = "Section one", DOIs = c("10.21926/obm.geriatr.2002123","https://doi.org/10.1016/j.jacc.2019.06.057")),
@@ -29,7 +33,13 @@
 publistR <- function(author_names = NULL,
                      ref_sections = NULL,
                      merge_sections = FALSE,
-                     merged_title = NULL) {
+                     merged_title = NULL,
+                     custom_fonts = NULL,
+                     tite_bold = FALSE,
+                     title_italic = FALSE,
+                     title_underline = FALSE,
+                     title_small_caps = FALSE
+                     ) {
   # ERROR HANDLING
   if (is.null(ref_sections)) {
     stop("No DOIs supplied")
@@ -51,6 +61,10 @@ publistR <- function(author_names = NULL,
   if (!all(unlist(lapply(lapply(ref_sections, names), check_ref_sections_keys)))) {
     stop("Ref_section keys not specified correctly. Make sure there are only key pairs of 'title' and 'DOIs'.")
   }
+  # Check if custom_fonts word template exists
+  if (!is.null(custom_fonts) & !file.exists(custom_fonts)) {
+    stop(paste0("Check that the required Word Template exists at ", custom_fonts))
+  }
 
 
   #### CREATE NECESSARY FILES ####
@@ -58,7 +72,11 @@ publistR <- function(author_names = NULL,
   csl_path <- system.file("publistR.csl", package = "publistR")
   bold_author_path <- system.file("bold-author.lua", package = "publistR")
   hide_me_path <- system.file("hide-me.lua", package = "publistR")
-  font_doc_path <- system.file("font-ref-doc.docx", package = "publistR")
+  if (!is.null(custom_fonts)) {
+    font_doc_path <- custom_fonts
+  } else {
+    font_doc_path <- system.file("font-ref-doc.docx", package = "publistR")
+  }
   section_bibliographies_path <- system.file("section-bibliographies.lua", package = "publistR")
 
   # location to copy to
@@ -73,6 +91,25 @@ publistR <- function(author_names = NULL,
   file.copy(hide_me_path, to_path)
   file.copy(font_doc_path, to_path)
   file.copy(section_bibliographies_path, to_path)
+
+  #### MODIFY CSL ####
+  csl <- readLines("publistR_temp/publistR.csl")
+  input_formatting <- function(input) {
+    for (line in c(534,540,546,549,554))
+      csl[line] <- gsub("/>", paste0(" ", input," />"), csl[line])
+  }
+  if (tite_bold) {
+    input_formatting("font-weight=\"bold\"")
+  }
+  if (title_italic) {
+    input_formatting("font-style=\"italic\"")
+  }
+  if (title_underline) {
+    input_formatting("text-decoration=\"underline\"")
+  }
+  if (title_small_caps) {
+    input_formatting("font-variant=\"small-caps\"")
+  }
 
   #### MODIFY YAML HEADER ####
   # Read YAML file
