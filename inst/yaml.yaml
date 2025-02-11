@@ -10,4 +10,5 @@ filters:
   - quarto
   - publistR_temp/section-bibliographies.lua
   - publistR_temp/bold-author.lua
+  - publistR_temp/hide-me.lua
 ---

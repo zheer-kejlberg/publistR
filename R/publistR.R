@@ -57,6 +57,7 @@ publistR <- function(author_names = NULL,
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
   bold_author_path <- system.file("bold-author.lua", package = "publistR")
+  hide_me_path <- system.file("hide-me.lua", package = "publistR")
   font_doc_path <- system.file("font-ref-doc.docx", package = "publistR")
   section_bibliographies_path <- system.file("section-bibliographies.lua", package = "publistR")
 
@@ -69,6 +70,7 @@ publistR <- function(author_names = NULL,
   # copy files
   file.copy(csl_path, to_path)
   file.copy(bold_author_path, to_path)
+  file.copy(hide_me_path, to_path)
   file.copy(font_doc_path, to_path)
   file.copy(section_bibliographies_path, to_path)
 
@@ -116,9 +118,9 @@ publistR <- function(author_names = NULL,
     get_shorthand <- function(DOI) { sub(", title=.*$", "", sub("^ @article\\{", "", DOI)) }
 
     if (merge_sections == FALSE) {
-      sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "", paste0("@", get_shorthand(unlist(bibtex[i]))), "")
+      sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "","::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
     } else {
-      sections <- c(sections, paste0("@", get_shorthand(unlist(bibtex[i]))), "")
+      sections <- c(sections, "::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
     }
 
   }
