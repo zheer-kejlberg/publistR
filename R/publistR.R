@@ -1,18 +1,30 @@
-#' publistR_knit
+#' publistR
 #'
-#' @name publistR_knit
-#' @rdname publistR_knit
+#' @name publistR
+#' @rdname publistR
 #' @author Zheer Kejlberg Al-Mashhadi
-#' @description Add author names to highlight in the publication list
+#' @description Create publication list
 #' @export
-#' @usage publistR_knit()
+#' @usage publistR()
 #' @return NULL
+#' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
+#' @param ref_sections a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
 #' @examples
-#'   \dontrun{publistR_knit()}
+#'   \dontrun{publistR(
+#'     author_names = list(
+#'       list(family = "Kejlberg Al-Mashhadi", given = "Zheer"),
+#'       list(family = "Kejlberg", given = "Zheer"),
+#'       list(family = "Al-Mashhadi", given = "Zheer")
+#'     ),
+#'     ref_sections = list(
+#'       list(title = "Section one", DOIs = c("10.21926/obm.geriatr.2002123","https://doi.org/10.1016/j.jacc.2019.06.057")),
+#'       list(title = "Section two", DOIs = c("https://doi.org/10.1016/j.jacc.2019.06.057","https://doi.org/10.1016/j.jacc.2019.07.009"))
+#'     )
+#'   )}
 
-#### publistR_knit(): Finalize process
+#### publistR():
 
-publistR_knit <- function(author_names = NULL, ref_sections = NULL) {
+publistR <- function(author_names = NULL, ref_sections = NULL) {
   #### CREATE NECESSARY FILES ####
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
