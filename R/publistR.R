@@ -9,6 +9,8 @@
 #' @return NULL
 #' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
 #' @param ref_sections a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
+#' @param merge_sections a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
+#' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
 #' @examples
 #'   \dontrun{publistR(
 #'     author_names = list(
@@ -24,7 +26,10 @@
 
 #### publistR():
 
-publistR <- function(author_names = NULL, ref_sections = NULL) {
+publistR <- function(author_names = NULL,
+                     ref_sections = NULL,
+                     merge_sections = FALSE,
+                     merged_title = NULL) {
   #### CREATE NECESSARY FILES ####
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
@@ -80,13 +85,22 @@ publistR <- function(author_names = NULL, ref_sections = NULL) {
   }
   ref_section_titles <- lapply(ref_sections,get_section_titles)
 
-  sections <- c()
+  if (merge_sections == FALSE) {
+    sections <- c()
+  } else {
+    sections <- c("", merged_title, "")
+  }
+
   for (i in 1:length(ref_section_titles)) {
 
     get_shorthand <- function(DOI) { sub(", title=.*$", "", sub("^ @article\\{", "", DOI)) }
 
-    #sections <- c(sections, unlist(rrr[i]), unlist(ttt[i]))
-    sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "", paste0("@", get_shorthand(unlist(bibtex[i]))), "")
+    if (merge_sections == FALSE) {
+      sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "", paste0("@", get_shorthand(unlist(bibtex[i]))), "")
+    } else {
+      sections <- c(sections, paste0("@", get_shorthand(unlist(bibtex[i]))), "")
+    }
+
   }
 
   # Create .bib file

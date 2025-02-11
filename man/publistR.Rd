@@ -10,6 +10,10 @@ publistR()
 \item{author_names}{a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.}
 
 \item{ref_sections}{a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".}
+
+\item{merge_sections}{a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.}
+
+\item{merged_title}{a section title for the merged section IF merge_sections is set to TRUE.}
 }
 \description{
 Create publication list
