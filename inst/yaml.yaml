@@ -1,13 +1,13 @@
 ---
 format:
   docx:
-    reference-doc: font-ref-doc.docx
+    reference-doc: publistR_temp/font-ref-doc.docx
 editor: source
-section-bibs-bibliography: references.bib
-csl: publistR.csl
+section-bibs-bibliography: publistR_temp/references.bib
+csl: publistR_temp/publistR.csl
 citeproc: false
 filters:
   - quarto
-  - section-bibliographies.lua
-  - bold-author.lua
+  - publistR_temp/section-bibliographies.lua
+  - publistR_temp/bold-author.lua
 ---
