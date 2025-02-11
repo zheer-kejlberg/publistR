@@ -53,7 +53,6 @@ publistR <- function(author_names = NULL,
   }
 
 
-
   #### CREATE NECESSARY FILES ####
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
@@ -84,14 +83,14 @@ publistR <- function(author_names = NULL,
   }
 
   # fix the citeproc value
-  verbatim_logical <- yaml::verbatim_logical
-  yaml_data <- yaml::as.yaml(yaml_data, handlers = list(logical=verbatim_logical))
+  #verbatim_logical <- yaml::verbatim_logical
+  yaml_data <- yaml::as.yaml(yaml_data, handlers = list(logical=yaml::verbatim_logical))
 
   # Write the modified YAML to a new file in the temp directory
   output_path <- paste0(getwd(), "/publistR_temp/yaml.txt")
   writeLines(yaml_data, output_path)
 
-  # ADD REFERENCES
+  #### ADD REFERENCES ####
   #Get paper info by DOI
   message("Retrieving publication info from supplied DOIs.")
   extract_dois <- function(ref_section) {
@@ -128,15 +127,15 @@ publistR <- function(author_names = NULL,
   bib <- unlist(bibtex)
   writeLines(bib, paste0(getwd(), "/publistR_temp/references.bib"))
 
-  # Create .qmd file
+  #### CREATE .QMD FILE ####
   yaml_section <- readLines(paste0(getwd(), "/publistR_temp/yaml.txt"))
   qmd_file <- c("---",yaml_section, "---",sections)
   writeLines(qmd_file, paste0(getwd(), "/publistR.qmd"))
 
-  # Knit .qmd file
+  #### KNIT .QMD FILE ####
   quarto::quarto_render(paste0(getwd(), "/publistR.qmd"))
 
-  # Delete temp files
+  #### DELETE HELPER FILES ####
   #file.remove("publistR.qmd")
   #unlink("publistR_temp", recursive = TRUE)
 }
