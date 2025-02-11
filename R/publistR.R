@@ -35,8 +35,23 @@ publistR <- function(author_names = NULL,
     stop("No DOIs supplied")
   }
   if (merge_sections == TRUE & is.null(merged_title)) {
-    stop("merge_sections argument set to TRUE but not input supplied to the merged_title argument. The merged section must have a title.")
+    stop("merge_sections argument set to TRUE but no input supplied to the merged_title argument. The merged section must have a title.")
   }
+  # check keys for author_names
+  check_author_name_keys <- function(input) {
+    input == c("family", "given")
+  }
+  if (!all(unlist(lapply(lapply(author_names, names), check_author_name_keys)))) {
+    stop("Author names keys not specified correctly. Make sure there are only key pairs of 'family' and 'given'.")
+  }
+  # check keys for ref_sections
+  check_ref_sections_keys <- function(input) {
+    input == c("title", "DOIs")
+  }
+  if (!all(unlist(lapply(lapply(author_names, names), check_ref_sections_keys)))) {
+    stop("Author names keys not specified correctly. Make sure there are only key pairs of 'family' and 'given'.")
+  }
+
 
 
   #### CREATE NECESSARY FILES ####
