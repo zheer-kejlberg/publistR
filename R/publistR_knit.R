@@ -51,13 +51,13 @@ publistR_knit <- function(author_names = NULL, ref_sections = NULL) {
   writeLines(yaml_data, output_path)
 
   # ADD REFERENCES
-  if (is.null(DOIs)) {
+  if (is.null(ref_sections)) {
     stop("No DOIs supplied")
   }
   #Get paper info by DOI
   message("Retrieving publication info from supplied DOIs.")
-  extract_dois <- function(ref_sections) {
-    rcrossref::cr_cn(ref_sections$DOIs)
+  extract_dois <- function(ref_section) {
+    rcrossref::cr_cn(ref_section$DOIs)
   }
   bibtex <- lapply(ref_sections,extract_dois)
   message("DOIs retrieved.")
