@@ -100,7 +100,7 @@ publistR <- function(author_names = NULL,
     for (line in c(534,540,546,549,554))
       csl[line] <- gsub("/>", paste0(" ", input," />"), csl[line])
   }
-  if (tite_bold) {
+  if (title_bold) {
     input_formatting("font-weight=\"bold\"")
   }
   if (title_italic) {
