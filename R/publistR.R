@@ -48,8 +48,8 @@ publistR <- function(author_names = NULL,
   check_ref_sections_keys <- function(input) {
     input == c("title", "DOIs")
   }
-  if (!all(unlist(lapply(lapply(author_names, names), check_ref_sections_keys)))) {
-    stop("Author names keys not specified correctly. Make sure there are only key pairs of 'family' and 'given'.")
+  if (!all(unlist(lapply(lapply(ref_sections, names), check_ref_sections_keys)))) {
+    stop("Ref_section keys not specified correctly. Make sure there are only key pairs of 'title' and 'DOIs'.")
   }
 
 
