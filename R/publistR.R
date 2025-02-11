@@ -97,8 +97,11 @@ publistR <- function(author_names = NULL,
   #### MODIFY CSL ####
   csl <- readLines("publistR_temp/publistR.csl")
   input_formatting <- function(input) {
-    for (line in c(534,540,546,549,554))
+    for (line in c(534,540,546,549,554)) {
+      print(csl[line])
       csl[line] <- gsub("/>", paste0(" ", input," />"), csl[line])
+      print(csl[line])
+    }
   }
   if (title_bold) {
     input_formatting("font-weight=\"bold\"")
