@@ -35,7 +35,7 @@ publistR <- function(author_names = NULL,
                      merge_sections = FALSE,
                      merged_title = NULL,
                      custom_fonts = NULL,
-                     tite_bold = FALSE,
+                     title_bold = FALSE,
                      title_italic = FALSE,
                      title_underline = FALSE,
                      title_small_caps = FALSE
@@ -112,6 +112,7 @@ publistR <- function(author_names = NULL,
   if (title_small_caps) {
     input_formatting("font-variant=\"small-caps\"")
   }
+  writeLines(csl, "publistR_temp/publistR.csl")
 
   #### MODIFY YAML HEADER ####
   # Read YAML file
