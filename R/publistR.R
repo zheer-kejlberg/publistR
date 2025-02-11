@@ -96,8 +96,12 @@ publistR <- function(author_names = NULL, ref_sections = NULL) {
   # Create .qmd file
   yaml_section <- readLines(paste0(getwd(), "/publistR_temp/yaml.txt"))
   qmd_file <- c("---",yaml_section, "---",sections)
-  writeLines(qmd_file, paste0(getwd(), "/publistR_temp/publistR.qmd"))
+  writeLines(qmd_file, paste0(getwd(), "/publistR.qmd"))
 
   # Knit .qmd file
-  quarto::quarto_render(paste0(getwd(), "/publistR_temp/publistR.qmd"))
+  quarto::quarto_render(paste0(getwd(), "/publistR.qmd"))
+
+  # Delete temp files
+  file.remove("publistR.qmd")
+  unlink("publistR_temp", recursive = TRUE)
 }
