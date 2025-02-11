@@ -62,8 +62,10 @@ publistR <- function(author_names = NULL,
     stop("Ref_section keys not specified correctly. Make sure there are only key pairs of 'title' and 'DOIs'.")
   }
   # Check if custom_fonts word template exists
-  if (!is.null(custom_fonts) & !file.exists(custom_fonts)) {
-    stop(paste0("Check that the required Word Template exists at ", custom_fonts))
+  if (!is.null(custom_fonts)) {
+    if (!file.exists(custom_fonts)) {
+      stop(paste0("Check that the required Word Template exists at ", custom_fonts))
+    }
   }
 
 
