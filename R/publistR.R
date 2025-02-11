@@ -30,6 +30,15 @@ publistR <- function(author_names = NULL,
                      ref_sections = NULL,
                      merge_sections = FALSE,
                      merged_title = NULL) {
+  # ERROR HANDLING
+  if (is.null(ref_sections)) {
+    stop("No DOIs supplied")
+  }
+  if (merge_sections == TRUE & is.null(merged_title)) {
+    stop("merge_sections argument set to TRUE but not input supplied to the merged_title argument. The merged section must have a title.")
+  }
+
+
   #### CREATE NECESSARY FILES ####
   # get filepaths
   csl_path <- system.file("publistR.csl", package = "publistR")
@@ -68,9 +77,6 @@ publistR <- function(author_names = NULL,
   writeLines(yaml_data, output_path)
 
   # ADD REFERENCES
-  if (is.null(ref_sections)) {
-    stop("No DOIs supplied")
-  }
   #Get paper info by DOI
   message("Retrieving publication info from supplied DOIs.")
   extract_dois <- function(ref_section) {
