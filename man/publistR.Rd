@@ -31,15 +31,28 @@ Create publication list
 \examples{
   \dontrun{
   publistR(
-    author_names = list(
-      list(family = "Al-Mashhadi", given = "Zheer"),
-      list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
-    ),
-    ref_sections = list(
-      list(title = "Section one", DOIs = c("10.21926/obm.geriatr.2002123","https://doi.org/10.1016/j.jacc.2019.06.057")),
-      list(title = "Section two", DOIs = c("https://doi.org/10.1016/j.jacc.2019.06.057","https://doi.org/10.1016/j.jacc.2019.07.009"))
-    )
-  )}
+  author_names = list(
+    list(family = "Al-Mashhadi", given = "Zheer"),
+    list(family = "Al-Mashhadi", given = "Zheer Kejlberg"),
+    list(family = "Al-Mashhadi", given = "Z."),
+    list(family = "Al-Mashhadi", given = "Z. K.")
+  ),
+  ref_sections = list(
+    list(title = "First authorships",
+         DOIs = c("https://doi.org/10.3389/fendo.2022.882998",
+                  "https://doi.org/10.3389/fendo.2022.861422"
+         )),
+    list(title = "Co-authorships",
+         DOIs = c("https://doi.org/10.1016/j.jacc.2020.11.059",
+                  "https://doi.org/10.1016/j.jacc.2019.06.057",
+                  "https://doi.org/10.3390/nu16193232",
+                  "https://doi.org/10.1007/s12020-024-03789-1",
+                  "https://doi.org/10.1111/dom.15220"
+         ))
+  ),
+  title_bold = T
+  )
+  }
 }
 \author{
 Zheer Kejlberg Al-Mashhadi
