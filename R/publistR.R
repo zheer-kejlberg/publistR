@@ -142,7 +142,7 @@ publistR <- function(author_names = NULL,
       doi <- stringr::str_extract(dois[i], "DOI=\\{.+?\\}")
       doi <- gsub("DOI=\\{","",doi)
       doi <- gsub("\\}","",doi)
-      dois[i] <- gsub("\\{.+, title=\\{", paste0(" @article\\{-",doi,", title=\\{"), dois[i])
+      dois[i] <- gsub("\\{.+, title=\\{", paste0("\\{",doi,", title=\\{"), dois[i])
     }
     dois <- as.list(dois)
   }
