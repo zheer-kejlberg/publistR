@@ -176,7 +176,7 @@ publistR <- function(author_names = NULL,
 
   # Create .bib file
   bib <- unlist(bibtex)
-  stringr::str_replace_all(bib,"‐","-")
+  bib <- stringr::str_replace_all(bib,"‐","-")
   writeLines(bib, paste0(getwd(), "/publistR_temp/references.bib"))
 
   #### CREATE .QMD FILE ####
