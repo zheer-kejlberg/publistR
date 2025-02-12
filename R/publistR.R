@@ -135,10 +135,14 @@ publistR <- function(author_names = NULL,
   message("DOIs retrieved.")
   print(bibtex)
   # Rename shorthand/keys
+
   rename_doi_key <- function(dois) {
     dois <- unlist(dois)
     for (i in 1:length(dois)) {
-      dois[i] <- gsub(" @article\\{.*, title=\\{", paste0(" @article\\{",i,", title=\\{"), dois[i])
+      doi <- stringr::str_extract(dois[i], "DOI=\\{.+?\\}")
+      doi <- gsub("DOI=\\{","",doi)
+      doi <- gsub("\\}","",doi)
+      dois[i] <- gsub("\\{.+, title=\\{", paste0(" @article\\{-",doi,", title=\\{"), dois[i])
     }
     dois <- as.list(dois)
   }
