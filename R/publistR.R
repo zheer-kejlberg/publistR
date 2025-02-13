@@ -5,7 +5,17 @@
 #' @author Zheer Kejlberg Al-Mashhadi
 #' @description Create publication list
 #' @export
-#' @usage publistR()
+#' @usage publistR(
+#'          author_names,
+#'          ref_sections,
+#'          merge_sections = FALSE,
+#'          merged_title,
+#'          custom_fonts,
+#'          title_bold = FALSE,
+#'          title_italic = FALSE,
+#'          title_underline = FALSE,
+#'          title_small_caps = FALSE
+#'        )
 #' @return NULL
 #' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
 #' @param ref_sections a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
