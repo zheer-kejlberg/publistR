@@ -64,7 +64,7 @@ publistR <- function(author_names = NULL,
                      title_underline = FALSE,
                      title_small_caps = FALSE
                      ) {
-  # ERROR HANDLING
+  #### ERROR HANDLING ####
   if (is.null(ref_sections)) {
     stop("No DOIs supplied")
   }
