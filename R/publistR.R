@@ -29,7 +29,7 @@
 #' @param title_italic Boolean, defaults to FALSE
 #' @param title_underline Boolean, defaults to FALSE
 #' @param title_small_caps Boolean, defaults to FALSE
-#' @param output_format a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"
+#' @param output_format a string, can take either "pdf", "docx", or "html"; defaults to "docx"
 #' @param output_path the path where the output document should be saved, defaults to the working directory
 #' @param output_filename the filename for the final document; defaults to "publication_list"
 #' @examples
@@ -74,6 +74,9 @@ publistR <- function(author_names = NULL,
                      output_filename = "publication_list"
                      ) {
   #### ERROR HANDLING ####
+  if (output_format != "pdf" & output_format != "docx" = output_format != "html") {
+    stop("Please select an approved output format")
+  }
   if (is.null(ref_sections)) {
     stop("No DOIs supplied")
   }
@@ -219,6 +222,7 @@ publistR <- function(author_names = NULL,
   #### KNIT .QMD FILE ####
   saved_wd <- getwd() # save current wd first
   setwd(output_path) # set new wd for the output
+  output_filename <- paste0(output_filename, ".", output_format)
   quarto::quarto_render(input = paste0(getwd(), "/publistR.qmd"),
                         output_format = output_format,
                         output_file = output_filename)
