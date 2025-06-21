@@ -154,8 +154,8 @@ publistR <- function(author_names = NULL,
   yaml_data <- yaml::as.yaml(yaml_data, handlers = list(logical=yaml::verbatim_logical))
 
   # Write the modified YAML to a new file in the temp directory
-  output_path <- paste0(getwd(), "/publistR_temp/yaml.txt")
-  writeLines(yaml_data, output_path)
+  temp_path <- paste0(getwd(), "/publistR_temp/yaml.txt")
+  writeLines(yaml_data, temp_path)
 
   #### ADD REFERENCES ####
   #Get paper info by DOI
