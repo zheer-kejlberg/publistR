@@ -73,10 +73,6 @@ publistR <- function(author_names = NULL,
                      output_path = getwd(),
                      output_filename = "publication_list"
                      ) {
-  output_format <- output_format
-  output_path <- output_path
-  output_filename <- output_filename
-
   #### ERROR HANDLING ####
   if (is.null(ref_sections)) {
     stop("No DOIs supplied")
