@@ -74,7 +74,7 @@ publistR <- function(author_names = NULL,
                      output_filename = "publication_list"
                      ) {
   #### ERROR HANDLING ####
-  if (output_format != "pdf" & output_format != "docx" = output_format != "html") {
+  if (output_format != "pdf" & output_format != "docx" != output_format != "html") {
     stop("Please select an approved output format")
   }
   if (is.null(ref_sections)) {
