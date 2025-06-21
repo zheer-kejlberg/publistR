@@ -14,7 +14,10 @@
 #'          title_bold = FALSE,
 #'          title_italic = FALSE,
 #'          title_underline = FALSE,
-#'          title_small_caps = FALSE
+#'          title_small_caps = FALSE,
+#'          output_format,
+#'          output_path,
+#'          output_filename
 #'        )
 #' @return NULL
 #' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
@@ -216,7 +219,7 @@ publistR <- function(author_names = NULL,
   #### KNIT .QMD FILE ####
   saved_wd <- getwd() # save current wd first
   setwd(output_path) # set new wd for the output
-  quarto::quarto_render(paste0(getwd(), "/publistR.qmd"),
+  quarto::quarto_render(input = paste0(getwd(), "/publistR.qmd"),
                         output_format = output_format,
                         output_file = output_filename)
 
