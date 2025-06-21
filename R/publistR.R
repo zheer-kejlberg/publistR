@@ -26,6 +26,9 @@
 #' @param title_italic Boolean, defaults to FALSE
 #' @param title_underline Boolean, defaults to FALSE
 #' @param title_small_caps Boolean, defaults to FALSE
+#' @param output_format a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"
+#' @param output_path the path where the output document should be saved, defaults to the working directory
+#' @param output_filename the filename for the final document; defaults to "publication_list"
 #' @examples
 #'   \dontrun{
 #'   publistR(
@@ -62,7 +65,10 @@ publistR <- function(author_names = NULL,
                      title_bold = FALSE,
                      title_italic = FALSE,
                      title_underline = FALSE,
-                     title_small_caps = FALSE
+                     title_small_caps = FALSE,
+                     output_format = "docx",
+                     output_path = getwd(),
+                     output_filename = "publication_list"
                      ) {
   #### ERROR HANDLING ####
   if (is.null(ref_sections)) {
@@ -208,9 +214,14 @@ publistR <- function(author_names = NULL,
   writeLines(qmd_file, paste0(getwd(), "/publistR.qmd"))
 
   #### KNIT .QMD FILE ####
-  quarto::quarto_render(paste0(getwd(), "/publistR.qmd"))
+  saved_wd <- getwd() # save current wd first
+  setwd(output_path) # set new wd for the output
+  quarto::quarto_render(paste0(getwd(), "/publistR.qmd"),
+                        output_format = output_format,
+                        output_file = output_filename)
 
   #### DELETE HELPER FILES ####
+  setwd(saved_wd) # return to saved wd to clean up
   file.remove("publistR.qmd")
   unlink("publistR_temp", recursive = TRUE)
 }
