@@ -150,14 +150,14 @@ publistR <- function(author_names = NULL,
     }
     return(csl)
   }
+  csl <- readLines(csl_path)
   if (is.null(custom_csl)) {
-    csl <- readLines(csl_path)
     if (title_bold) { csl <- input_formatting("font-weight=\"bold\"") }
     if (title_italic) { csl <- input_formatting("font-style=\"italic\"") }
     if (title_underline) { csl <- input_formatting("text-decoration=\"underline\"") }
     if (title_small_caps) { csl <- input_formatting("font-variant=\"small-caps\"") }
-    writeLines(csl, paste0(to_path, "/publistR.csl"))
   }
+  writeLines(csl, paste0(to_path, "/publistR.csl"))
 
 
   #### MODIFY YAML HEADER ####
