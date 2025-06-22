@@ -223,7 +223,7 @@ publistR <- function(author_names = NULL,
   saved_wd <- getwd() # save current wd first
   setwd(output_path) # set new wd for the output
   output_filename <- paste0(output_filename, ".", output_format)
-  quarto::quarto_render(input = paste0(getwd(), "/publistR.qmd"),
+  quarto::quarto_render(input = paste0(saved_wd, "/publistR.qmd"),
                         output_format = output_format,
                         output_file = output_filename)
 
