@@ -26,10 +26,10 @@
 #' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
 #' @param custom_fonts File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
 #' @param custom_csl File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
-#' @param title_bold Boolean, defaults to FALSE
-#' @param title_italic Boolean, defaults to FALSE
-#' @param title_underline Boolean, defaults to FALSE
-#' @param title_small_caps Boolean, defaults to FALSE
+#' @param title_bold Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.
+#' @param title_italic Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.
+#' @param title_underline Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.
+#' @param title_small_caps Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.
 #' @param output_format a string, can take either "pdf", "docx", or "html"; defaults to "docx"
 #' @param output_path the path where the output document should be saved, defaults to the working directory
 #' @param output_filename the filename for the final document; defaults to "publication_list"
@@ -144,18 +144,21 @@ publistR <- function(author_names = NULL,
   file.copy(section_bibliographies_path, to_path)
 
   #### MODIFY CSL ####
-  csl <- readLines(csl_path)
   input_formatting <- function(input) {
     for (line in c(534,540,546,549,554)) {
       csl[line] <- gsub("/>", paste0(" ", input," />"), csl[line])
     }
     return(csl)
   }
-  if (title_bold) { csl <- input_formatting("font-weight=\"bold\"") }
-  if (title_italic) { csl <- input_formatting("font-style=\"italic\"") }
-  if (title_underline) { csl <- input_formatting("text-decoration=\"underline\"") }
-  if (title_small_caps) { csl <- input_formatting("font-variant=\"small-caps\"") }
-  writeLines(csl, paste0(to_path, "/publistR.csl"))
+  if (is.null(custom_csl)) {
+    csl <- readLines(csl_path)
+    if (title_bold) { csl <- input_formatting("font-weight=\"bold\"") }
+    if (title_italic) { csl <- input_formatting("font-style=\"italic\"") }
+    if (title_underline) { csl <- input_formatting("text-decoration=\"underline\"") }
+    if (title_small_caps) { csl <- input_formatting("font-variant=\"small-caps\"") }
+    writeLines(csl, paste0(to_path, "/publistR.csl"))
+  }
+
 
   #### MODIFY YAML HEADER ####
   # Read YAML file
