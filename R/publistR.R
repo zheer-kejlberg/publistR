@@ -21,10 +21,11 @@
 #'        )
 #' @return NULL
 #' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
-#' @param ref_sections a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
+#' @param ref_sections a list of lists containing a section title and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
 #' @param merge_sections a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
 #' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
-#' @param custom_fonts File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Arg defaults to 'NULL', using PublistR's internal Word Template.
+#' @param custom_fonts File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
+#' @param custom_csl File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
 #' @param title_bold Boolean, defaults to FALSE
 #' @param title_italic Boolean, defaults to FALSE
 #' @param title_underline Boolean, defaults to FALSE
@@ -65,6 +66,7 @@ publistR <- function(author_names = NULL,
                      merge_sections = FALSE,
                      merged_title = NULL,
                      custom_fonts = NULL,
+                     custom_csl = NULL,
                      title_bold = FALSE,
                      title_italic = FALSE,
                      title_underline = FALSE,
@@ -103,11 +105,23 @@ publistR <- function(author_names = NULL,
       stop(paste0("Check that the required Word Template exists at ", custom_fonts))
     }
   }
+  # Check if custom_csl file exists
+  if (!is.null(custom_csl)) {
+    if (!file.exists(custom_csl)) {
+      stop(paste0("Check that the required .csl file exists at ", custom_csl))
+    }
+  }
+
 
 
   #### CREATE NECESSARY FILES ####
   # get filepaths
-  csl_path <- system.file("publistR.csl", package = "publistR")
+  if (!is.null(custom_csl)) {
+    csl_path <- custom_csl
+  } else {
+    csl_path <- system.file("publistR.csl", package = "publistR")
+  }
+
   bold_author_path <- system.file("bold-author.lua", package = "publistR")
   hide_me_path <- system.file("hide-me.lua", package = "publistR")
   if (!is.null(custom_fonts)) {
