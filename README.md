@@ -6,7 +6,7 @@ Zheer Kejlberg Al-Mashhadi
 An R package to easily turn your bibliography or a list of DOIs into a
 structured and formatted list of publications.
 
-## Usage
+## Installation
 
 ``` r
 devtools::install_github("zheer-kejlberg/publistR")
@@ -14,3 +14,57 @@ library(publistR)
 ```
 
 And you’re good to go
+
+## Usage
+
+First try out
+
+``` r
+?publistR
+```
+
+the documentation should help you get started quickly.
+
+The package consists of one function, aptly named publistR() which has
+two required input arguments:
+
+1)  `author_names`
+
+2)  `ref_sections`
+
+the `author_names` argument takes a list of named lists as input. Each
+internal list represents an author name to be highlighted. E.g.;
+
+``` r
+author_names = list(
+  list(family = "Al-Mashhadi", given = "Zheer"),
+  list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
+  )
+```
+
+the `ref_sections` argument takes a list of named lists as input. Each
+internal list represents an section in the final document. Each section
+requires a title (a single string) and a vector of DOIs. E.g.;
+
+``` r
+ref_sections = list(
+  list(title = "First authorships",
+       DOIs = c("https://doi.org/10.3389/fendo.2022.882998",
+                "https://doi.org/10.3389/fendo.2022.861422"
+                )),
+  list(title = "Co-authorships",
+       DOIs = c("https://doi.org/10.1016/j.jacc.2020.11.059",
+                "https://doi.org/10.1016/j.jacc.2019.06.057",
+                "https://doi.org/10.3390/nu16193232",
+                "https://doi.org/10.1007/s12020-024-03789-1",
+                "https://doi.org/10.1111/dom.15220"
+                ))
+  )
+```
+
+The remaining arguments are optional. They provide the option to change
+the input and output paths, the format (.pdf, .html, .docx), to provide
+your own custom .csl (citation style language) file, your own custom
+Word Font Template file, and more.
+
+Enjoy.
