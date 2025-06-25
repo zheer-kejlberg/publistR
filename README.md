@@ -32,6 +32,8 @@ two required input arguments:
 
 2)  `ref_sections`
 
+### Bold font author names
+
 the `author_names` argument takes a list of named lists as input. Each
 internal list represents an author name to be highlighted. E.g.;
 
@@ -41,6 +43,8 @@ author_names = list(
   list(family = "Al-Mashhadi", given = "Zheer Kejlberg")
   )
 ```
+
+### Sections
 
 the `ref_sections` argument takes a list of named lists as input. Each
 internal list represents an section in the final document. Each section
@@ -61,6 +65,33 @@ ref_sections = list(
                 ))
   )
 ```
+
+### Using .bib file instead of (or in addition to) DOIs
+
+the `bib_file` argument allows you to specify a .bib filepath which will
+be used to any input supplied to `ref_sections` that doesn’t have a
+DOI-format. The input will then be assumed to be a reference key in the
+.bib-file.
+
+E.g.:
+
+``` r
+publistR(
+  author_names = list(
+    list(family = "Al-Mashhadi", given = "Z."),
+    list(family = "Al-Mashhadi", given = "Z. K.")
+  ),
+  ref_sections = list(
+    list(title = "Manuscripts", 
+         DOIs = c("https://doi.org/10.3389/fendo.2022.882998",
+                  "al-mashhadi2022"
+         ))
+  ),
+  bib_file = "references.bib"
+)
+```
+
+### Other
 
 The remaining arguments are optional. They provide the option to change
 the input and output paths, the format (.pdf, .html, .docx), to provide

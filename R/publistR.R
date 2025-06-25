@@ -67,6 +67,7 @@ publistR <- function(author_names = NULL,
                      merged_title = NULL,
                      custom_fonts = NULL,
                      custom_csl = NULL,
+                     bib_file = NULL,
                      title_bold = FALSE,
                      title_italic = FALSE,
                      title_underline = FALSE,
@@ -74,7 +75,7 @@ publistR <- function(author_names = NULL,
                      output_format = "docx",
                      output_path = getwd(),
                      output_filename = "publication_list"
-                     ) {
+) {
   #### ERROR HANDLING ####
   if (output_format != "pdf" & output_format != "docx" & output_format != "html") {
     stop("Please select an approved output format")
@@ -178,10 +179,29 @@ publistR <- function(author_names = NULL,
   writeLines(yaml_data, temp_path)
 
   #### ADD REFERENCES ####
+  # Load the supplied .bib-file if any
+  if (!is.null(bib_file)) {
+    custom_bib <- paste0(readLines(bib_file), collapse="")
+  }
   #Get paper info by DOI
   message("Retrieving publication info from supplied DOIs.")
   extract_dois <- function(ref_section) {
-    unlist(rcrossref::cr_cn(ref_section$DOIs))
+    output <- list()
+    for (i in 1:length(ref_section$DOIs)) {
+      DOI <- ref_section$DOIs[i]
+      print(DOI)
+      if(grepl("10.[0-9]+/.+", DOI) | is.null(bib_file)) {
+        output[i] <- rcrossref::cr_cn(DOI)
+      } else {
+        # get the ref
+        pattern <- paste0("@[^@]*?\\{",DOI,",.*?(?=@)")
+        print(pattern)
+        #ref <- grep(pattern, custom_bib)
+        output[i] <- unlist(stringr::str_extract_all(custom_bib, pattern))
+      }
+    }
+    return(output)
+    #rcrossref::cr_cn(ref_section$DOIs)
   }
   bibtex <- lapply(ref_sections,extract_dois)
   message("DOIs retrieved.")
@@ -189,12 +209,13 @@ publistR <- function(author_names = NULL,
   # Rename shorthand/keys
 
   rename_doi_key <- function(dois) {
-    dois <- unlist(dois)
+    #dois <- unlist(dois)
     for (i in 1:length(dois)) {
       doi <- stringr::str_extract(dois[i], "DOI=\\{.+?\\}")
       doi <- gsub("DOI=\\{","",doi)
       doi <- gsub("\\}","",doi)
       dois[i] <- gsub("\\{.+, title=\\{", paste0("\\{",doi,", title=\\{"), dois[i])
+      print(dois[i])
     }
     dois <- as.list(dois)
   }
@@ -216,7 +237,7 @@ publistR <- function(author_names = NULL,
 
   for (i in 1:length(ref_section_titles)) {
 
-    get_shorthand <- function(DOI) { sub(", title=.*$", "", sub("^ @article\\{", "", DOI)) }
+    get_shorthand <- function(DOI) { sub(", title=.*$", "", sub("^[ ]?@article\\{", "", DOI)) }
 
     if (merge_sections == FALSE) {
       sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "","::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
