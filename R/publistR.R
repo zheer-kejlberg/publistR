@@ -189,39 +189,31 @@ publistR <- function(author_names = NULL,
     output <- list()
     for (i in 1:length(ref_section$DOIs)) {
       DOI <- ref_section$DOIs[i]
-      print(DOI)
       if(grepl("10.[0-9]+/.+", DOI) | is.null(bib_file)) {
         output[i] <- rcrossref::cr_cn(DOI)
       } else {
         # get the ref
         pattern <- paste0("@[^@]*?\\{",DOI,",.*?(?=@)")
-        print(pattern)
-        #ref <- grep(pattern, custom_bib)
         output[i] <- unlist(stringr::str_extract_all(custom_bib, pattern))
       }
     }
     return(output)
-    #rcrossref::cr_cn(ref_section$DOIs)
+
   }
   bibtex <- lapply(ref_sections,extract_dois)
   message("DOIs retrieved.")
-  print(bibtex)
   # Rename shorthand/keys
 
   rename_doi_key <- function(dois) {
-    #dois <- unlist(dois)
     for (i in 1:length(dois)) {
       doi <- stringr::str_extract(dois[i], "DOI=\\{.+?\\}")
       doi <- gsub("DOI=\\{","",doi)
       doi <- gsub("\\}","",doi)
       dois[i] <- gsub("\\{.+, title=\\{", paste0("\\{",doi,", title=\\{"), dois[i])
-      print(dois[i])
     }
     dois <- as.list(dois)
   }
   bibtex <- lapply(bibtex,rename_doi_key)
-  #rename_doi_key(unlist(t)[1],4)
-  print(bibtex)
 
   # Create sections
   get_section_titles <- function(ref_sections) {
