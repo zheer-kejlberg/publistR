@@ -68,3 +68,17 @@ your own custom .csl (citation style language) file, your own custom
 Word Font Template file, and more.
 
 Enjoy.
+
+## Acknowledgements
+
+This package draws on open source work by the following:
+
+Brenton Wiernik’s APA .csl:
+https://github.com/citation-style-language/styles/blob/master/apa-cv.csl
+
+Shafee’s bold-author.lua file from the following SO thread:
+https://stackoverflow.com/questions/76394078/format-specific-authors-with-bold-font-in-bibliography-created-with-quarto/76429867#76429867
+
+Matt Capaldi’s hide-me.lua file
+
+Jesse Rosenthal and Albert Krewinkel’s section-bibliographies.lua

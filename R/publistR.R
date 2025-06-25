@@ -181,7 +181,7 @@ publistR <- function(author_names = NULL,
   #Get paper info by DOI
   message("Retrieving publication info from supplied DOIs.")
   extract_dois <- function(ref_section) {
-    rcrossref::cr_cn(ref_section$DOIs)
+    unlist(rcrossref::cr_cn(ref_section$DOIs))
   }
   bibtex <- lapply(ref_sections,extract_dois)
   message("DOIs retrieved.")
