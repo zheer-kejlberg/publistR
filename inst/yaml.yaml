@@ -2,6 +2,8 @@
 format:
   docx:
     reference-doc: publistR_temp/font-ref-doc.docx
+  html: default
+  pdf: default
 editor: source
 section-bibs-bibliography: publistR_temp/references.bib
 csl: publistR_temp/publistR.csl
