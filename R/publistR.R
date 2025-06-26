@@ -9,15 +9,15 @@
 #'          author_names,
 #'          ref_sections,
 #'          merge_sections = FALSE,
-#'          merged_title,
-#'          custom_fonts,
+#'          merged_title = NULL,
+#'          custom_fonts = NULL,
 #'          title_bold = FALSE,
 #'          title_italic = FALSE,
 #'          title_underline = FALSE,
 #'          title_small_caps = FALSE,
-#'          output_format,
-#'          output_path,
-#'          output_filename
+#'          output_format = "docx",
+#'          output_path = getwd(),
+#'          output_filename = "publication_list"
 #'        )
 #' @return NULL
 #' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
