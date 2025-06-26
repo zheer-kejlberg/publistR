@@ -248,7 +248,9 @@ publistR <- function(author_names = NULL,
   #### CREATE .QMD FILE ####
   yaml_section <- readLines(paste0(getwd(), "/publistR_temp/yaml.txt"))
   qmd_file <- c("---",yaml_section, "---",sections)
-  writeLines(qmd_file, paste0(getwd(), "/publistR.qmd"))
+
+  qmd_filename <- paste0(output_filename,".qmd")
+  writeLines(qmd_file, paste0(getwd(), paste0("/",qmd_filename)))
 
   #### KNIT .QMD FILE ####
   saved_wd <- getwd() # save current wd first
@@ -256,12 +258,11 @@ publistR <- function(author_names = NULL,
   if (output_format != "all") {
     output_filename <- paste0(output_filename, ".", output_format)
   }
-  quarto::quarto_render(input = paste0(saved_wd, "/publistR.qmd"),
-                        output_format = output_format,
-                        output_file = output_filename)
+  quarto::quarto_render(input = paste0(saved_wd, paste0("/",qmd_filename)),
+                        output_format = output_format)
 
   #### DELETE HELPER FILES ####
   setwd(saved_wd) # return to saved wd to clean up
-  file.remove("publistR.qmd")
+  file.remove(qmd_filename)
   unlink("publistR_temp", recursive = TRUE)
 }
