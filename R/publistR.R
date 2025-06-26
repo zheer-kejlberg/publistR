@@ -229,7 +229,8 @@ publistR <- function(author_names = NULL,
 
   for (i in 1:length(ref_section_titles)) {
 
-    get_shorthand <- function(DOI) { sub(", title=.*$", "", sub("^[ ]?@article\\{", "", DOI)) }
+    #get_shorthand <- function(DOI) { sub(", (title|type)[ ]*=.*$", "", sub("^[ ]?@.+?\\{", "", DOI)) }
+    get_shorthand <- function(DOI) { sub("^[ ]*?@.+?\\{", "", DOI) }
 
     if (merge_sections == FALSE) {
       sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "","::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
