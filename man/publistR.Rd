@@ -10,6 +10,8 @@ publistR(
          merge_sections = FALSE,
          merged_title = NULL,
          custom_fonts = NULL,
+         custom_csl = NULL,
+         bib_file = NULL,
          title_bold = FALSE,
          title_italic = FALSE,
          title_underline = FALSE,
@@ -31,6 +33,8 @@ publistR(
 \item{custom_fonts}{File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.}
 
 \item{custom_csl}{File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.}
+
+\item{bib_file}{File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.}
 
 \item{title_bold}{Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.}
 
