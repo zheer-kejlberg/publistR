@@ -13,27 +13,38 @@ publistR(
          title_bold = FALSE,
          title_italic = FALSE,
          title_underline = FALSE,
-         title_small_caps = FALSE
+         title_small_caps = FALSE,
+         output_format,
+         output_path,
+         output_filename
        )
 }
 \arguments{
 \item{author_names}{a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.}
 
-\item{ref_sections}{a list of lists containing titles and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".}
+\item{ref_sections}{a list of lists containing a section title and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".}
 
 \item{merge_sections}{a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.}
 
 \item{merged_title}{a section title for the merged section IF merge_sections is set to TRUE.}
 
-\item{custom_fonts}{File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Arg defaults to 'NULL', using PublistR's internal Word Template.}
+\item{custom_fonts}{File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.}
 
-\item{title_bold}{Boolean, defaults to FALSE}
+\item{custom_csl}{File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.}
 
-\item{title_italic}{Boolean, defaults to FALSE}
+\item{title_bold}{Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.}
 
-\item{title_underline}{Boolean, defaults to FALSE}
+\item{title_italic}{Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.}
 
-\item{title_small_caps}{Boolean, defaults to FALSE}
+\item{title_underline}{Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.}
+
+\item{title_small_caps}{Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.}
+
+\item{output_format}{a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"}
+
+\item{output_path}{the path where the output document should be saved, defaults to the working directory}
+
+\item{output_filename}{the filename for the final document; defaults to "publication_list"}
 }
 \description{
 Create publication list

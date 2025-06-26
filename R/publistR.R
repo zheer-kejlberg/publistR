@@ -30,7 +30,7 @@
 #' @param title_italic Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.
 #' @param title_underline Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.
 #' @param title_small_caps Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.
-#' @param output_format a string, can take either "pdf", "docx", or "html"; defaults to "docx"
+#' @param output_format a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"
 #' @param output_path the path where the output document should be saved, defaults to the working directory
 #' @param output_filename the filename for the final document; defaults to "publication_list"
 #' @examples
