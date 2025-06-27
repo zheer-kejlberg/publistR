@@ -7,6 +7,9 @@
 #' @export
 #' @usage publistR(
 #'          ref_sections,
+#'          title = "",
+#'          subtitle = "",
+#'          author = "",
 #'          prepend = NULL,
 #'          append = NULL,
 #'          author_names = list(list(family = "Family", given = "Given")),
@@ -21,26 +24,31 @@
 #'          title_small_caps = FALSE,
 #'          output_format = "docx",
 #'          output_path = getwd(),
-#'          output_filename = "publication_list"
+#'          output_filename = "publication_list",
+#'          add_yaml = NULL
 #'        )
 #' @return NULL
 
 #' @param ref_sections a list of lists containing a section title and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
+#' @param title (optional) a character value for the document title
+#' @param subtitle (optional) a character value for the document subtitle
+#' @param author (optional) a character value for the document author
 #' @param prepend (optional) a (vector of) character string(s) to go in the bottom of the final output document, each element in the vector representing one (Quarto formatted) line.
 #' @param append (optional) a (vector of) character string(s) to go in the top of the final output document, each element in the vector representing one (Quarto formatted) line.
 #' @param author_names (optional) a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
-#' @param merge_sections a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
-#' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
+#' @param merge_sections (optional) a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
+#' @param merged_title (optional) a section title for the merged section IF merge_sections is set to TRUE.
 #' @param custom_fonts (optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
 #' @param custom_csl (optional) File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
 #' @param bib_file (optional) File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.
-#' @param title_bold Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.
-#' @param title_italic Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.
-#' @param title_underline Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.
-#' @param title_small_caps Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.
-#' @param output_format a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"
-#' @param output_path the path where the output document should be saved, defaults to the working directory
-#' @param output_filename the filename for the final document; defaults to "publication_list"
+#' @param title_bold (optional) Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.
+#' @param title_italic (optional) Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.
+#' @param title_underline (optional) Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.
+#' @param title_small_caps (optional) Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.
+#' @param output_format (optional) a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"
+#' @param output_path (optional) the path where the output document should be saved, defaults to the working directory
+#' @param output_filename (optional) the filename for the final document; defaults to "publication_list"
+#' @param add_yaml (optional, advanced) a nested list that can be turned into a YAML object (see yaml::as.yaml()) with additional metadata parameters. Some keys are already taken and can not be customised.
 #' @examples
 #'   \dontrun{
 #'   publistR(
@@ -66,6 +74,9 @@
 #### publistR():
 
 publistR <- function(ref_sections,
+                     title = "",
+                     subtitle = "",
+                     author = "",
                      prepend = NULL,
                      append = NULL,
                      author_names = list(list(family = "Family", given = "Given")),
@@ -80,7 +91,8 @@ publistR <- function(ref_sections,
                      title_small_caps = FALSE,
                      output_format = "docx",
                      output_path = getwd(),
-                     output_filename = "publication_list"
+                     output_filename = "publication_list",
+                     add_yaml = NULL
 ) {
   #### ERROR HANDLING ####
   if (output_format != "pdf" & output_format != "docx" & output_format != "html" & output_format != "all") {
@@ -118,7 +130,15 @@ publistR <- function(ref_sections,
       stop(paste0("Check that the required .csl file exists at ", custom_csl))
     }
   }
-
+  # Check YAML keys and values
+  if (length(title) > 1) { stop("Please specify a single character value in `title =`") }
+  if (length(subtitle) > 1) { stop("Please specify a single character value in `subtitle =`") }
+  if (length(authoe) > 1) { stop("Please specify a single character value in `author =`") }
+  for (yaml_line in add_yaml) {
+    if (names(yaml_line) %in% c("title", "subtitle", "author", "format", "editor", "section-bibs-bibliography", "csl", "citeproc", "filters")) {
+      stop(paste0(yaml_line, "is not an approved custom YAML key."))
+    }
+  }
 
 
   #### CREATE NECESSARY FILES ####
@@ -175,6 +195,16 @@ publistR <- function(ref_sections,
   # add author names
   if (!is.null(author_names)) {
     yaml_data[["bold-auth-name"]] <- author_names
+  }
+  yaml_data[["title"]] <- title
+  yaml_data[["subtitle"]] <- subtitle
+  yaml_data[["author"]] <- author
+
+  # Add custom YAML
+  if (!is.null(add_yaml)) {
+    for (yaml_line in add_yaml) {
+      yaml_data[[names(yaml_line)]] <- unname(yaml_line)
+    }
   }
 
   # fix the citeproc value

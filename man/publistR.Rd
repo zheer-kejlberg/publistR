@@ -6,6 +6,9 @@
 \usage{
 publistR(
          ref_sections,
+         title = "",
+         subtitle = "",
+         author = "",
          prepend = NULL,
          append = NULL,
          author_names = list(list(family = "Family", given = "Given")),
@@ -20,11 +23,18 @@ publistR(
          title_small_caps = FALSE,
          output_format = "docx",
          output_path = getwd(),
-         output_filename = "publication_list"
+         output_filename = "publication_list",
+         add_yaml = NULL
        )
 }
 \arguments{
 \item{ref_sections}{a list of lists containing a section title and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".}
+
+\item{title}{(optional) a character value for the document title}
+
+\item{subtitle}{(optional) a character value for the document subtitle}
+
+\item{author}{(optional) a character value for the document author}
 
 \item{prepend}{(optional) a (vector of) character string(s) to go in the bottom of the final output document, each element in the vector representing one (Quarto formatted) line.}
 
@@ -32,9 +42,9 @@ publistR(
 
 \item{author_names}{(optional) a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.}
 
-\item{merge_sections}{a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.}
+\item{merge_sections}{(optional) a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.}
 
-\item{merged_title}{a section title for the merged section IF merge_sections is set to TRUE.}
+\item{merged_title}{(optional) a section title for the merged section IF merge_sections is set to TRUE.}
 
 \item{custom_fonts}{(optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.}
 
@@ -42,19 +52,21 @@ publistR(
 
 \item{bib_file}{(optional) File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.}
 
-\item{title_bold}{Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.}
+\item{title_bold}{(optional) Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.}
 
-\item{title_italic}{Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.}
+\item{title_italic}{(optional) Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.}
 
-\item{title_underline}{Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.}
+\item{title_underline}{(optional) Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.}
 
-\item{title_small_caps}{Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.}
+\item{title_small_caps}{(optional) Boolean, defaults to FALSE; reference title in small caps. Note: is not used if a custom_csl is set.}
 
-\item{output_format}{a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"}
+\item{output_format}{(optional) a string, can take either "pdf", "docx", "html" or "all"; defaults to "docx"}
 
-\item{output_path}{the path where the output document should be saved, defaults to the working directory}
+\item{output_path}{(optional) the path where the output document should be saved, defaults to the working directory}
 
-\item{output_filename}{the filename for the final document; defaults to "publication_list"}
+\item{output_filename}{(optional) the filename for the final document; defaults to "publication_list"}
+
+\item{add_yaml}{(optional, advanced) a nested list that can be turned into a YAML object (see yaml::as.yaml()) with additional metadata parameters. Some keys are already taken and can not be customised.}
 }
 \description{
 Create publication list
