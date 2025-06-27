@@ -6,8 +6,10 @@
 #' @description Create publication list
 #' @export
 #' @usage publistR(
-#'          author_names,
 #'          ref_sections,
+#'          prepend = NULL,
+#'          append = NULL,
+#'          author_names = list(list(family = "Family", given = "Given")),
 #'          merge_sections = FALSE,
 #'          merged_title = NULL,
 #'          custom_fonts = NULL,
@@ -22,13 +24,16 @@
 #'          output_filename = "publication_list"
 #'        )
 #' @return NULL
-#' @param author_names a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
+
 #' @param ref_sections a list of lists containing a section title and DOIs for each section of the reference paper. Each embedded list must have two keys, "title =" and "DOIs =".
+#' @param prepend (optional) a (vector of) character string(s) to go in the bottom of the final output document, each element in the vector representing one (Quarto formatted) line.
+#' @param append (optional) a (vector of) character string(s) to go in the top of the final output document, each element in the vector representing one (Quarto formatted) line.
+#' @param author_names (optional) a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
 #' @param merge_sections a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
 #' @param merged_title a section title for the merged section IF merge_sections is set to TRUE.
-#' @param custom_fonts File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
-#' @param custom_csl File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
-#' @param bib_file File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.
+#' @param custom_fonts (optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
+#' @param custom_csl (optional) File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
+#' @param bib_file (optional) File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.
 #' @param title_bold Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.
 #' @param title_italic Boolean, defaults to FALSE; italic reference title. Note: is not used if a custom_csl is set.
 #' @param title_underline Boolean, defaults to FALSE; underlines reference title. Note: is not used if a custom_csl is set.
@@ -39,12 +44,6 @@
 #' @examples
 #'   \dontrun{
 #'   publistR(
-#'     author_names = list(
-#'       list(family = "Al-Mashhadi", given = "Zheer"),
-#'       list(family = "Al-Mashhadi", given = "Zheer Kejlberg"),
-#'       list(family = "Al-Mashhadi", given = "Z."),
-#'       list(family = "Al-Mashhadi", given = "Z. K.")
-#'     ),
 #'     ref_sections = list(
 #'       list(title = "First authorships",
 #'            DOIs = c("https://doi.org/10.3389/fendo.2022.882998",
@@ -52,20 +51,24 @@
 #'            )),
 #'       list(title = "Co-authorships",
 #'            DOIs = c("https://doi.org/10.1016/j.jacc.2020.11.059",
-#'                     "https://doi.org/10.1016/j.jacc.2019.06.057",
-#'                     "https://doi.org/10.3390/nu16193232",
-#'                     "https://doi.org/10.1007/s12020-024-03789-1",
-#'                     "https://doi.org/10.1111/dom.15220"
+#'                     "https://doi.org/10.1016/j.jacc.2019.06.057"
 #'            ))
 #'     ),
-#'     title_bold = T
+#'     author_names = list(
+#'       list(family = "Al-Mashhadi", given = "Z."),
+#'       list(family = "Al-Mashhadi", given = "Z. K.")
+#'     ),
+#'     title_italic = T,
+#'     output_format = "pdf"
 #'   )
 #'   }
 
 #### publistR():
 
-publistR <- function(author_names = NULL,
-                     ref_sections = NULL,
+publistR <- function(ref_sections,
+                     prepend = NULL,
+                     append = NULL,
+                     author_names = list(list(family = "Family", given = "Given")),
                      merge_sections = FALSE,
                      merged_title = NULL,
                      custom_fonts = NULL,
@@ -227,7 +230,7 @@ publistR <- function(author_names = NULL,
   if (merge_sections == FALSE) {
     sections <- c()
   } else {
-    sections <- c("", paste0("# ", merged_title), "")
+    sections <- c("", paste0("# ", merged_title, "  {.sectionbibliography}"), "")
   }
 
   for (i in 1:length(ref_section_titles)) {
@@ -236,9 +239,9 @@ publistR <- function(author_names = NULL,
     get_shorthand <- function(DOI) { sub("^[ ]*?@.+?\\{", "", DOI) }
 
     if (merge_sections == FALSE) {
-      sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i])), "","::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
+      sections <- c(sections, "", paste0("# ", unlist(ref_section_titles[i]), "  {.sectionbibliography}"), "","::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "", "::: {.sectionrefs}", ":::", "")
     } else {
-      sections <- c(sections, "::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "")
+      sections <- c(sections, "::: hide-me", paste0("@", get_shorthand(unlist(bibtex[i]))),":::", "", "::: {.sectionrefs}", ":::", "")
     }
 
   }
@@ -250,10 +253,16 @@ publistR <- function(author_names = NULL,
 
   #### CREATE .QMD FILE ####
   yaml_section <- readLines(paste0(getwd(), "/publistR_temp/yaml.txt"))
-  qmd_file <- c("---",yaml_section, "---",sections)
+  yaml_section <- c("---", yaml_section, "---","")
+
+  if (!is.null(prepend)) { yaml_section <- c(yaml_section, prepend) }
+  qmd_file <- c(yaml_section, "", sections, "")
+  if (!is.null(append)) { qmd_file <- c(qmd_file, append) }
 
   qmd_filename <- paste0(output_filename,".qmd")
-  writeLines(qmd_file, paste0(getwd(), paste0("/",qmd_filename)))
+  writeLines(qmd_file,
+             paste0(getwd(), paste0("/",qmd_filename))
+             )
 
   #### KNIT .QMD FILE ####
   saved_wd <- getwd() # save current wd first
