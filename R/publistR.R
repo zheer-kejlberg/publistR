@@ -114,6 +114,12 @@ publistR <- function(ref_sections,
   if (!all(unlist(lapply(lapply(author_names, names), check_author_name_keys)))) {
     stop("Author names keys not specified correctly. Make sure there are only key pairs of 'family' and 'given'.")
   }
+  # add comma to given names
+  for (name_i in 1:length(author_names)) {
+    print(author_names[[name_i]][["given"]])
+    author_names[[name_i]][["given"]] <- paste0(author_names[[name_i]][["given"]],",")
+    print(author_names[[name_i]][["given"]])
+  }
   # check keys for ref_sections
   check_ref_sections_keys <- function(input) {
     input == c("title", "DOIs")
