@@ -7,8 +7,8 @@ An R package to easily turn your bibliography or a list of DOIs into a
 structured and formatted list of publications.
 
 For an example, see
-<a href="zheer.dk/cv/publications">zheer.dk/cv/publications</a>. Note,
-.pdf and .docx versions are also available in the sidebar.
+<a href="https://zheer.dk/cv/publications.html">zheer.dk/cv/publications</a>.
+Note, .pdf and .docx versions are also available in the sidebar.
 
 ## Installation
 
