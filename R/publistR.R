@@ -136,7 +136,7 @@ publistR <- function(ref_sections,
   if (length(author) > 1) { stop("Please specify a single character value in `author =`") }
   for (yaml_line in add_yaml) {
     if (names(yaml_line) %in% c("title", "subtitle", "author", "format", "editor", "section-bibs-bibliography", "csl", "citeproc", "filters")) {
-      stop(paste0(names("'", yaml_line), "' is not an approved custom YAML key."))
+      stop(paste0("'", names(yaml_line), "' is not an approved custom YAML key."))
     }
   }
 
