@@ -24,7 +24,8 @@ publistR(
          output_format = "docx",
          output_path = getwd(),
          output_filename = "publication_list",
-         add_yaml = NULL
+         add_yaml = NULL,
+         keep_files = FALSE
        )
 }
 \arguments{
@@ -67,6 +68,8 @@ publistR(
 \item{output_filename}{(optional) the filename for the final document; defaults to "publication_list"}
 
 \item{add_yaml}{(optional, advanced) a nested list that can be turned into a YAML object (see yaml::as.yaml()) with additional metadata parameters. Some keys are already taken and can not be customised.}
+
+\item{keep_files}{(optional) Boolean, determines whether temporary files created in the process should be deleted}
 }
 \description{
 Create publication list

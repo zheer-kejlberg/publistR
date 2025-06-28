@@ -25,7 +25,8 @@
 #'          output_format = "docx",
 #'          output_path = getwd(),
 #'          output_filename = "publication_list",
-#'          add_yaml = NULL
+#'          add_yaml = NULL,
+#'          keep_files = FALSE
 #'        )
 #' @return NULL
 
@@ -49,6 +50,7 @@
 #' @param output_path (optional) the path where the output document should be saved, defaults to the working directory
 #' @param output_filename (optional) the filename for the final document; defaults to "publication_list"
 #' @param add_yaml (optional, advanced) a nested list that can be turned into a YAML object (see yaml::as.yaml()) with additional metadata parameters. Some keys are already taken and can not be customised.
+#' @param keep_files (optional) Boolean, determines whether temporary files created in the process should be deleted
 #' @examples
 #'   \dontrun{
 #'   publistR(
@@ -92,7 +94,8 @@ publistR <- function(ref_sections,
                      output_format = "docx",
                      output_path = getwd(),
                      output_filename = "publication_list",
-                     add_yaml = NULL
+                     add_yaml = NULL,
+                     keep_files = FALSE
 ) {
   #### ERROR HANDLING ####
   if (output_format != "pdf" & output_format != "docx" & output_format != "html" & output_format != "all") {
@@ -305,6 +308,9 @@ publistR <- function(ref_sections,
 
   #### DELETE HELPER FILES ####
   setwd(saved_wd) # return to saved wd to clean up
-  file.remove(qmd_filename)
-  unlink("publistR_temp", recursive = TRUE)
+
+  if (!keep_files) {
+    file.remove(qmd_filename)
+    unlink("publistR_temp", recursive = TRUE)
+  }
 }
