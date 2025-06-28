@@ -47,7 +47,7 @@ publistR(
 
 \item{merged_title}{(optional) a section title for the merged section IF merge_sections is set to TRUE.}
 
-\item{custom_fonts}{(optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.}
+\item{custom_fonts}{(optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The file must be named "font-ref-doc.docx". The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.}
 
 \item{custom_csl}{(optional) File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.}
 

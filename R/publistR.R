@@ -39,7 +39,7 @@
 #' @param author_names (optional) a list of lists containing author names to be highlighted. Each embedded list must have to keys "family =" and "given =" for sur- and firstname, respectively.
 #' @param merge_sections (optional) a Boolean (defaults to FALSE) determining whether to merge all the supplied sections into one section with a common section title. For ease of use.
 #' @param merged_title (optional) a section title for the merged section IF merge_sections is set to TRUE.
-#' @param custom_fonts (optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
+#' @param custom_fonts (optional) File path to a custom Quarto Word Template (for adjusting the output fonts). The file must be named "font-ref-doc.docx". The fonts to set are Heading 1, Hyperlink and Body Text/First Paragraph. Defaults to 'NULL', using PublistR's internal Word Template.
 #' @param custom_csl (optional) File path to a custom .csl file to change the citation style. Note: author name bolding is only guaranteed to work with publistR's internal .csl file.
 #' @param bib_file (optional) File path to a provided .bib file from which one wishes to reference certain elements. Can be used in conjunction with DOIs.
 #' @param title_bold (optional) Boolean, defaults to FALSE; bold reference title. Note: is not used if a custom_csl is set.
