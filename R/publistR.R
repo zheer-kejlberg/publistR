@@ -116,9 +116,7 @@ publistR <- function(ref_sections,
   }
   # add comma to given names
   for (name_i in 1:length(author_names)) {
-    print(author_names[[name_i]][["given"]])
     author_names[[name_i]][["given"]] <- paste0(author_names[[name_i]][["given"]],",")
-    print(author_names[[name_i]][["given"]])
   }
   # check keys for ref_sections
   check_ref_sections_keys <- function(input) {
